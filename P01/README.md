@@ -1,4 +1,4 @@
-# cse1325
+# CSE1325
 UTA CSE 1325
 Name: Ujjwal Bajagain 
 UTA ID: 1001643752
