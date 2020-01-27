@@ -4,6 +4,13 @@
 using namespace std;
 
 int main(){
-    string userName;
-    cout << "Hello, " << system("whoami") << "!"<< endl;
+
+char *userName;
+if(getenv("USER")){
+    userName = getenv("USER");
+} else if (getenv("USERNAME")){
+        userName = getenv("USERNAME");
+}
+
+cout <<"Hello, "<< userName <<"!"<<endl;
 }
