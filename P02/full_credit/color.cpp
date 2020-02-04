@@ -12,5 +12,5 @@ std::string Color::to_string()
 
 std:: string Color::colorize (std:: string text)
 {
-    std::cout << "\033[38;2;"<<_red<<";"<<_green<<";"<<_blue<<"m"<<text  <<"\033[0m" <<std::endl;
+    return "\033[38;2;"+std::to_string(_red)+";"+std::to_string(_green)+";"+std::to_string(_blue)+"m"+text+"\033[0m";
 }
