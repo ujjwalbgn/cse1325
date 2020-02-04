@@ -15,6 +15,5 @@ int main()
     {
         userName = getenv("USERNAME");
     }
-
     cout << "Hello, " << userName << "!" << endl;
 }
