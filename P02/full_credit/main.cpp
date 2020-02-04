@@ -29,6 +29,7 @@ int main()
     //Instating color to represent user input
     Color color{r, g, b};
 
+    //print color string representation 
     std::cout << color.colorize(color.to_string()) << std::endl;
 
 }

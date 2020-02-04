@@ -17,7 +17,7 @@ public:
     // this method returns a string representation of the RGB
     std::string to_string();
 
-    //  method returns its parameter preceded by the ANSI escape code
+    //  method returns parameter preceded by the ANSI escape code
     std::string colorize(std::string text);
 };
 
