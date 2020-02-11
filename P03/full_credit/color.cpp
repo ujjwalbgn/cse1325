@@ -1,17 +1,44 @@
 #include <iostream>
-#include <string>
+#include <stdlib.h>
 #include "color.h"
 
-Color::Color(int red, int green, int blue):_red{red},_green{green},_blue{blue}{}
+#include <string>
+
+//Default Color Constructor
+Color::Color() : _reset{true} {}
+
+//Overloading Constructor
+Color::Color(int red, int green, int blue) : _red{red}, _green{green}, _blue{blue}, _reset{false} {}
 
 std::string Color::to_string()
 {
     /* your implementation here */
-    return "( " + std::to_string(_red) + ", " + std::to_string(_green) + ", " + std::to_string(_blue) + ")";
+    return "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ")";
 }
 
-// this method returns parameter preceded by the ANSI escape code
-std:: string Color::colorize (std:: string text)
+//Friend Functions
+
+//Outputs  ANSI escape codes
+std::ostream &operator<<(std::ostream &ost, const Color &color)
 {
-    return "\033[38;2;"+std::to_string(_red)+";"+std::to_string(_green)+";"+std::to_string(_blue)+"m"+text+"\033[0m";
+    if (!color._reset)
+    {
+        ost << "\033[38;2;" + std::to_string(color._red) + ";" + std::to_string(color._green) + ";" + std::to_string(color._blue) + "m";
+        return ost;
+    }
+    else
+    {
+        ost << "\033[0m";
+        return ost;
+    }
+}
+
+//read the color
+std::istream &operator>>(std::istream &ist, Color &color)
+{
+    ist >> color._red;
+    ist >> color._green;
+    ist >> color._blue;
+    color._reset = false;
+    return ist;
 }
