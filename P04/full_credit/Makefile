@@ -1,28 +1,17 @@
-#Written by Ujjwal Bajagain 1001643752
+CXXFLAGS = --std=c++17
 
-SRC1 = main.cpp
-SRC2 = coin.cpp
-SRC3 = test.cpp
-OBJ1 = $(SRC1:.cpp=.o)
-OBJ2 = $(SRC2:.cpp=.o)
-OBJ3 = $(SRC3:.cpp=.o)
-EXE = $(SRC1:.c=.e)
+all: color main test
 
-CFLAGS = -g
+coin: main.o coin.o *.h
+	$(CXX) $(CXXFLAGS) main.o coin.o -o coin
 
-all : $(EXE)
- 
-$(EXE): $(OBJ1) $(OBJ2) $(OBJ3)
-	g++ $(CFLAGS) $(OBJ1) $(OBJ2) $(OBJ3) -o $(EXE)
+test: main.o test.o *.h
+	$(CXX) $(CXXFLAGS) main.o test.o -o test
 
-$(OBJ1) : $(SRC1) $(HFILES)
-	g++ -c $(CFLAGS) $(SRC1) -o $(OBJ1)
-
-$(OBJ2) : $(SRC2) $(HFILES)
-	g++ -c $(CFLAGS) $(SRC2) -o $(OBJ2)
-
-$(OBJ3) : $(SRC3) $(HFILES)
-	g++ -c $(CFLAGS) $(SRC3) -o $(OBJ3)
+main.o: main.cpp *.h
+	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
+main.o: color.cpp *.h
+	$(CXX) $(CXXFLAGS) -c main.cpp -o coin.o
 
 clean:
-	rm -f */o *.gch ~* a.out test coin logger
+	rm -f *.o *.gch ~* a.out color test
