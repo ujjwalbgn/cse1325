@@ -5,14 +5,15 @@
 #include <vector>
 #include <ostream>
 
-class Desktop{
+class Desktop
+{
 public:
         double price();
-        void add_option(Options& option);
-        friend std::ostream& operator << (std::ostream& ost, const Desktop& desktop) ;
-private:
-        std::vector<Options*> options;
+        void add_option(Options &option);
+        friend std::ostream &operator<<(std::ostream &ost, const Desktop &desktop);
 
+private:
+        std::vector<Options *> options;
 };
 
 #endif

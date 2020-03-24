@@ -8,7 +8,6 @@
 
 class Order
 {
-
 public:
     Order(Customer &customer);
     ~Order();
