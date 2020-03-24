@@ -10,18 +10,18 @@ void Desktop::add_option(Options& option){
 double Desktop::price(){
 
     double total =0;
-    for(auto c: options)
+    for(auto n: options)
     {
-        total += c->Options::cost();
+        total += n->Options::cost();
     }
     return total;
 }
 
 
 std::ostream& operator << (std::ostream& ost, const Desktop& desktop) {
-    for(auto c: desktop.options)
+    for(auto n: desktop.options)
     {
-        ost << *c <<"\n";
+        ost << *n <<"\n";
     }
     return ost;
 }
