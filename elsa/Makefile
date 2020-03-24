@@ -14,7 +14,7 @@ customer.o: customer.cpp *.h
 desktop.o: desktop.cpp *.h
 	$(CXX) $(CXXFLAGS) desktop.cpp -c -o desktop.o
 
-options.o: taxfree.cpp *.h
+options.o: options.cpp *.h
 	$(CXX) $(CXXFLAGS) options.cpp -c -o options.o
 	
 store.o: store.cpp *.h
