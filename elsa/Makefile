@@ -1,24 +1,18 @@
 CXXFLAGS += --std=c++17
 
-all: elsa
-
-elsa: main.o customer.o desktop.o options.o order.o store.o *.h
-	$(CXX) $(CXXFLAGS) main.o customer.o desktop.o options.o order.o store.o  -o elsa
-
+elsa: main.o store.o customer.o options.o desktop.o order.o
+	$(CXX) $(CXXFLAGS) main.o store.o customer.o options.o desktop.o order.o -o elsa
 main.o: main.cpp *.h
-	$(CXX) $(CXXFLAGS) main.cpp -c -o main.o
-
-customer.o: customer.cpp *.h
-	$(CXX) $(CXXFLAGS) customer.cpp -c -o customer.o
-
-desktop.o: desktop.cpp *.h
-	$(CXX) $(CXXFLAGS) desktop.cpp -c -o desktop.o
-
-options.o: options.cpp *.h
-	$(CXX) $(CXXFLAGS) options.cpp -c -o options.o
-	
+	$(CXX) $(CXXFLAGS) -c main.cpp
 store.o: store.cpp *.h
-	$(CXX) $(CXXFLAGS) store.cpp -c -o store.o
-
+	$(CXX) $(CXXFLAGS) -c store.cpp
+customer.o: customer.cpp *.h
+	$(CXX) $(CXXFLAGS) -c customer.cpp
+options.o: options.cpp *.h
+	$(CXX) $(CXXFLAGS) -c options.cpp
+desktop.o: desktop.cpp *.h
+	$(CXX) $(CXXFLAGS) -c desktop.cpp
+order.o: order.cpp *.h
+	$(CXX) $(CXXFLAGS) -c order.cpp
 clean:
-	rm -f *.o *.gch a.out elsa
+	rm -f *.o *.gch elsa

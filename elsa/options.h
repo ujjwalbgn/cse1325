@@ -2,20 +2,18 @@
 #define __OPTIONS_H
 
 #include <string>
-#include <iostream>
+#include <ostream>
 
-class Options
-{
-public:
+class Options {
+  public:
     Options(std::string name, double cost);
-    ~Options();
+    virtual ~Options();
     double cost();
-    std::string to_string();
-    friend std::ostream &operator<<(std::ostream &ost, const Options &option);
-
-protected:
+    virtual std::string to_string() const;
+    friend std::ostream& operator<<(std::ostream& ost, const Options& options);
+  protected:
     std::string _name;
     double _cost;
 };
 
-#endif 
+#endif

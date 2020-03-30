@@ -1,32 +1,16 @@
 #include "order.h"
-#include <vector>
 
-Order::Order(Customer &customer) : _customer{customer} {}
-
+Order::Order(Customer& customer) : _customer{customer} {}
 Order::~Order() {}
-
-void Order::add_product(Desktop &desktop)
-{
-    _products.push_back(&desktop);
+int Order::add_product(Desktop& desktop) {_products.push_back(&desktop); return _products.size()-1;}
+double Order::price() const {
+    double pr = 0;
+    for(auto p : _products) pr += p->price();
+    return pr;
 }
-
-double Order::price()
-{
-    double total = 0;
-    for (auto n : _products)
-    {
-        total += n->Desktop::price();
-    }
-    return total;
-}
-
-std::ostream &operator<<(std::ostream &ost, const Order &order)
-{
-    ost << order._customer << " ";
-    for (auto n : order._products)
-    {
-        ost << *n << " ";
-    }
-    ost << "\n";
+std::ostream& operator<<(std::ostream& ost, const Order& order) {
+    ost << "Customer: " << order._customer;
+    for(auto p : order._products) ost << "\n  " << *p << "\n  Price: $" << p->price() << "\n";
+    ost << "\nTotal price: $" << order.price();
     return ost;
 }
