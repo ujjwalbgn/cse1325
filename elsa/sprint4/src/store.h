@@ -5,6 +5,10 @@
 #include "options.h"
 #include "desktop.h"
 #include "order.h"
+#include "ram.h"
+#include <ostream>
+#include <istream>
+#include <fstream>
 
 const std::string ELSA_COOKIE = "ℰ𐑃𐊖ᴀ";
 const std::string ELSA_VERSION = "1.1.0";

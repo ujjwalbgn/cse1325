@@ -39,18 +39,19 @@ Store::Store(std::istream &ist)
 
 void Store::save(std::ostream &ost)
 {
-    ost << ELSA_COOKIE << "\n";
-    ost << ELSA_FILE_VERSION << "\n";
-    ost << customers.size() << '\n'; // Number in vector
+    ost << customers.size() << std::endl;
     for (auto c : customers)
         c.save(ost);
-    ost << options.size() << '\n';
-    for (auto o : options)
-        o->save(ost);
-    ost << desktops.size() << '\n';
+
+    ost << options.size() << std::endl;
+    for (auto c : options)
+        c->save(ost);
+
+    ost << desktops.size() << std::endl;
     for (auto d : desktops)
         d.save(ost);
-    ost << orders.size() << '\n';
+
+    ost << orders.size() << std::endl;
     for (auto o : orders)
         o.save(ost);
 }
