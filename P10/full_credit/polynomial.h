@@ -13,7 +13,7 @@ public:
   void add_term(double coefficient, double exponent);
   double operator()(double x); // Evaluate the polynomial for x
   void solve(double min, double max, int nthreads = 1,
-             double slices = 120000000, double precision = 0.00001);
+             double slices = 129000000, double precision = 0.00001);
   std::vector<double> roots();
   friend std::ostream &operator<<(std::ostream &ost, const Polynomial &polynomial);
 

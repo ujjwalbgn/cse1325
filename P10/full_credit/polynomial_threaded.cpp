@@ -38,19 +38,19 @@ void Polynomial::solve(double min, double max, int nthreads, double slices, doub
    double minMod,maxMod;
    _roots = {};
 
-    std::thread th[nthreads];
-    minMod = max - ((max-min) /slices);
-    maxMod = min + ((max-min) /slices);
+    std::thread t[nthreads];
+    minMod = min - ((max-min) /slices);
+    maxMod = max + ((max-min) /slices);
 
     for(int i=0; i<nthreads; i++){
-        minMod++;
-        maxMod++;
-        th[i] = std::thread([&]{solve_recursive(minMod,maxMod,i+1,slices,precision);});
+        minMod = minMod - ((max-min) /slices);
+        maxMod = maxMod + ((max-min) /slices);
+        t[i] = std::thread([&]{solve_recursive(minMod,maxMod,i+1,slices,precision);});
     }
 
      for(int i=0;i<nthreads;i++)
     {
-        th[i].join();
+        t[i].join();
     }
 
     //solve_recursive(min, max, 1, slices, precision);
