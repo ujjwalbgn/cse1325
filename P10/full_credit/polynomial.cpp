@@ -43,7 +43,7 @@ void Polynomial::solve_recursive(double min, double max, int tid, double slices,
                 _roots.push_back((x1+x2)/2);
             }
         }
-        x1 = x2; 
+        x1 = x2;
         x2 = x1 + delta;
         y1 = y2;
     }
@@ -55,6 +55,3 @@ std::ostream& operator<<(std::ostream& ost, const Polynomial& polynomial) {
     for(auto& t : polynomial._terms) ost << t;
     return ost;
 }
-
-
-

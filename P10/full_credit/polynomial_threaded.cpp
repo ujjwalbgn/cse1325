@@ -1,5 +1,10 @@
 #include "polynomial.h"
 #include <cmath>
+#include <thread>
+#include <mutex>
+
+std::mutex m;
+int i=0;
 
 Polynomial::Polynomial() { }
 Polynomial::Polynomial(std::istream& ist) {
@@ -30,11 +35,30 @@ double Polynomial::operator()(double x) {
 //   nthreads is the number of threads requested
 //   tid is a thread id - useful for logger.h messages
 void Polynomial::solve(double min, double max, int nthreads, double slices, double precision) {
-    _roots = {};
-    solve_recursive(min, max, 1, slices, precision);
+   double minMod,maxMod;
+   _roots = {};
+
+    std::thread th[nthreads];
+    minMod = max - ((max-min) /slices);
+    maxMod = min + ((max-min) /slices);
+
+    for(int i=0; i<nthreads; i++){
+        minMod++;
+        maxMod++;
+        th[i] = std::thread([&]{solve_recursive(minMod,maxMod,i+1,slices,precision);});
+    }
+
+     for(int i=0;i<nthreads;i++)
+    {
+        th[i].join();
+    }
+
+    //solve_recursive(min, max, 1, slices, precision);
 }
+
 // (Internal) recursive search for polynomial solutions
 void Polynomial::solve_recursive(double min, double max, int tid, double slices, double precision, int recursions) {
+    //Mutex to be used on vector push back
     Polynomial& f = *this;
     double delta = (max - min) / slices;
     double x1 = min;
@@ -48,10 +72,12 @@ void Polynomial::solve_recursive(double min, double max, int tid, double slices,
             if((abs(f(x1+x2)/2) > precision) && ((x2 - x1) > precision) && (recursions < 20)) {
                 solve_recursive(x1, x2, tid, std::min(slices, (x2-x1)/precision), precision, recursions+1); // recurse for more precision
             } else {
+                m.lock();
                 _roots.push_back((x1+x2)/2);
+                m.unlock();
             }
         }
-        x1 = x2; 
+        x1 = x2;
         x2 = x1 + delta;
         y1 = y2;
     }
@@ -63,6 +89,3 @@ std::ostream& operator<<(std::ostream& ost, const Polynomial& polynomial) {
     for(auto& t : polynomial._terms) ost << t;
     return ost;
 }
-
-
-
